@@ -20,9 +20,13 @@ while True:
             for index, element in enumerate(todos):
                 print(f'{index + 1} : {element}')
         case 'edit':
-            edit_todo = input("What element do you want to edit?")
-            new_todo = input("Enter new to do: ")
-            index = todos.index(edit_todo)
-            todos[index] = new_todo
+            edit_todo = int(input("What number do you want to edit?"))
+            new_todo = input("Enter new value: ")
+            todos[edit_todo - 1] = new_todo
+        case 'complete':
+            complete_item = int(input("What number do you want to complete?"))
+            completed_item = todos.pop(complete_item - 1)
+            print(f'You rock! "{completed_item}" Task was completed!')
         case 'exit':
             break
+
