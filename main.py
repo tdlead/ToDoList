@@ -30,32 +30,41 @@ def print_content(filename):
 
 
 while True:
-    user_action = input("Do you want to add, show or exit?")
+    user_action: str = input("Do you want to add, show or exit?")
 
-    match user_action:
-        case 'add':
-            todo = input("Enter to do: ")
-            todo = todo.title() + '\n'
+    if user_action.startswith('add'):
+        todo = user_action[4:].strip().title() + '\n'
+        todos = read_file(file_name)
+        todos.append(todo)
+        write_file(file_name, todos)
 
-            todos = read_file(file_name)
-            todos.append(todo)
-            write_file(file_name, todos)
+    elif user_action.strip() == 'show':
+        print_content(file_name)
 
-        case 'show' | 'display':
-            print_content(file_name)
-
-        case 'edit':
-            edit_todo = int(input("What number do you want to edit?")) - 1
+    elif user_action.startswith('edit'):
+        try:
+            edit_todo = int(user_action[5:].strip()) - 1
             new_todo = input("Enter new value: ").title() + '\n'
             todos = read_file(file_name)
             todos[edit_todo] = new_todo
             write_file(file_name, todos)
+        except ValueError:
+            print('Your command is not valid. Try to introduce number instead of text. ')
+            continue
+        except IndexError:
+            print('There is no such number in to do list ')
+            continue
 
-        case 'complete':
-            complete_item = int(input("What number do you want to complete?"))
+    elif user_action.startswith('complete'):
+        try:
+            complete_item = int(user_action[8:].strip())
             todos = read_file(file_name)
             completed_item = todos.pop(complete_item - 1)
             write_file(file_name, todos)
             print(f'You rock! "{completed_item.strip()}" Task was completed!')
-        case 'exit':
-            break
+        except IndexError:
+            print('There is no such number in to do list ')
+            continue
+
+    elif user_action.startswith('exit'):
+        break
