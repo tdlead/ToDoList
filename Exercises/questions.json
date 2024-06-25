@@ -1,0 +1,20 @@
+[
+  {
+    "question_text": "What are dolphins",
+    "alternatives": [
+      "Amphibians",
+      "Fish",
+      "Birds",
+      "Mammal"
+    ],
+    "correct_answer": 4
+  },
+  {
+    "question_text": "What occupies most of the Earth's surface?",
+    "alternatives": [
+      "Land",
+      "Water"
+    ],
+    "correct_answer": 2
+  }
+]
