@@ -9,7 +9,10 @@ I learnt/remembered:
 """
 
 from modules import functions
+import time
 
+now = time.strftime('%B %d %Y, %H:%M:%S')
+print(now)
 FILEPATH = 'todos.txt'
 
 while True:
@@ -17,7 +20,7 @@ while True:
 
     if user_action.startswith('add'):
         todo = user_action[4:].strip().title() + '\n'
-        todos = functions.read_file(FILEPATH)
+        todos = functions.get_todos(FILEPATH)
         todos.append(todo)
         functions.write_file(FILEPATH, todos)
 
@@ -28,7 +31,7 @@ while True:
         try:
             edit_todo = int(user_action[5:].strip()) - 1
             new_todo = input("Enter new value: ").title() + '\n'
-            todos = functions.read_file(FILEPATH)
+            todos = functions.get_todos(FILEPATH)
             todos[edit_todo] = new_todo
             functions.write_file(FILEPATH, todos)
         except ValueError:
@@ -41,7 +44,7 @@ while True:
     elif user_action.startswith('complete'):
         try:
             complete_item = int(user_action[8:].strip())
-            todos = functions.read_file(FILEPATH)
+            todos = functions.get_todos(FILEPATH)
             completed_item = todos.pop(complete_item - 1)
             functions.write_file(FILEPATH, todos)
             print(f'You rock! "{completed_item.strip()}" Task was completed!')
